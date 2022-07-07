@@ -1,11 +1,8 @@
-import { useState } from "react"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
-import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 
 export function Header(props) {
@@ -26,7 +23,7 @@ export function Header(props) {
                     >
                         Products
                     </Typography>
-                    <label for="vategories">
+                    <label htmlFor="vategories">
                         {" "}
                         <Typography
                             variant="h6"
@@ -48,7 +45,9 @@ export function Header(props) {
                         </MenuItem>
                         {categories.map((category) => {
                             return (
-                                <MenuItem value={category}>{category}</MenuItem>
+                                <MenuItem key={category} value={category}>
+                                    {category}
+                                </MenuItem>
                             )
                         })}
                     </Select>
