@@ -26,18 +26,16 @@ export function App() {
     useEffect(() => {
         //bouncer
         if (!selectedCategory) return
-        fetch(`https://fakestoreapi.com/products/category/${selectedCategory}`)
+        fetch(
+            `https://fakestoreapi.com/products/category/${selectedCategory}?sort=${sorting}`
+        )
             .then((res) => res.json())
-            .then((res) => setProducts(res)) //if category selected now set the showing product to this res
-    }, [selectedCategory])
-
-    useEffect(() => {
-        //bouncer
-        if (!sorting) return
-        fetch(`https://fakestoreapi.com/products?sort=${sorting}`)
-            .then((res) => res.json())
-            .then((res) => setProducts(res))
-    }, [sorting]) //default sorting is Ascending!
+            .then((res) => {
+                console.log(res)
+                setProducts(res)
+            })
+            .catch((error) => console.log(error))
+    }, [selectedCategory, sorting])
 
     //see the product detail:
     useEffect(() => {
