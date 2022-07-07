@@ -7,7 +7,26 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 
 export const Product = (props) => {
-    const { id, title, price, description, category, image } = props
+    const {
+        id,
+        title,
+        price,
+        description,
+        category,
+        image,
+        setProductID,
+        uniqueProductId,
+        setDeleteProduct,
+    } = props
+
+    const seeProduct = () => {
+        setDeleteProduct(false)
+        setProductID(uniqueProductId)
+    }
+    const deleteProduct = () => {
+        setDeleteProduct(true)
+        setProductID(uniqueProductId)
+    }
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia component="img" alt={title} width="100%" image={image} />
@@ -23,8 +42,12 @@ export const Product = (props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Action1</Button>
-                <Button size="small">Action2</Button>
+                <Button size="small" onClick={seeProduct}>
+                    See the Product
+                </Button>
+                <Button size="small" onClick={deleteProduct}>
+                    Delete
+                </Button>
             </CardActions>
         </Card>
     )
