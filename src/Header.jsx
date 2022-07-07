@@ -4,12 +4,21 @@ import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
+import Switch from "@mui/material/Switch"
+import { FormControlLabel } from "@mui/material"
 
 export function Header(props) {
-    const { categories, selectedCategory, setSelectedCategory } = props
-
-    const handleChange = (event) => {
+    const { categories, selectedCategory, setSelectedCategory, setSorting } =
+        props
+    const categoryChange = (event) => {
         setSelectedCategory(event.target.value)
+    }
+    const sortChange = (event) => {
+        if (event.target.checked) {
+            setSorting("desc")
+        } else {
+            setSorting("asc")
+        }
     }
 
     return (
@@ -23,6 +32,12 @@ export function Header(props) {
                     >
                         Products
                     </Typography>
+                    <FormControlLabel
+                        control={
+                            <Switch onChange={sortChange} color="warning" />
+                        }
+                        label="Sorting Descending"
+                    />
                     <label htmlFor="vategories">
                         {" "}
                         <Typography
@@ -37,7 +52,7 @@ export function Header(props) {
                         name="categories"
                         id="categories"
                         value={selectedCategory}
-                        onChange={handleChange}
+                        onChange={categoryChange}
                         sx={{ color: "white" }}
                     >
                         <MenuItem value="">

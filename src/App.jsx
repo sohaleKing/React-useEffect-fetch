@@ -9,6 +9,7 @@ export function App() {
     const [selectedCategory, setSelectedCategory] = useState("")
     const [productID, setProductID] = useState(0)
     const [deleteProduct, setDeleteProduct] = useState(false)
+    const [sorting, setSorting] = useState("")
 
     //Get all products & get all availavle categories
     useEffect(() => {
@@ -30,15 +31,21 @@ export function App() {
             .then((res) => setProducts(res)) //if category selected now set the showing product to this res
     }, [selectedCategory])
 
+    useEffect(() => {
+        //bouncer
+        if (!sorting) return
+        fetch(`https://fakestoreapi.com/products?sort=${sorting}`)
+            .then((res) => res.json())
+            .then((res) => setProducts(res))
+    }, [sorting]) //default sorting is Ascending!
+
     //see the product detail:
     useEffect(() => {
         //bouncer
         if (!productID || deleteProduct) return
         fetch(`https://fakestoreapi.com/products/${productID}`)
             .then((res) => res.json())
-            .then((res) =>
-                console.log("see the details of the product = ", res)
-            )
+            .then((res) => console.log("the details of the product = ", res))
     }, [productID])
 
     //Delete a Product
@@ -60,6 +67,7 @@ export function App() {
                     categories={categories}
                     selectedCategory={selectedCategory}
                     setSelectedCategory={setSelectedCategory}
+                    setSorting={setSorting}
                 />
             </div>
             <div className="ProductGrid">
